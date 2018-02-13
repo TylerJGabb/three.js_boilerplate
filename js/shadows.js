@@ -7,10 +7,11 @@ if (!document) {
 var titleMsg = "Minimalistic shadow demo<br>By Tyler Gabb"
 document.getElementById('info').innerHTML = titleMsg
 
+//------------------------------------------------------------------------
+
 var renderer = new THREE.WebGLRenderer({
     antialias : true //SET THIS FOR SMOOTH SHADING
 })
-
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.01, 1000);
 renderer.setSize(window.innerWidth, window.innerHeight);
