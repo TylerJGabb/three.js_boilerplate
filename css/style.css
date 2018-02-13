@@ -1,0 +1,19 @@
+body{
+    margin : 0;
+    color : grey;
+}
+
+
+div#info{
+    position : absolute;/*allows it to be ontop of other elements*/
+    top : 15px;
+    width : 100%;
+    text-align : center;
+    color : white;
+    font-weight : bold;
+    background-color : hsla(0, 0%, 0%, 0.00); /*transparent*/
+    z-index : 1; /*put on top of everything else*/
+    font-family : 'Courier New';
+}
+
+
