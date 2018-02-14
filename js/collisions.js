@@ -2,7 +2,10 @@ if (!document) {
     var THREE = require('three');
 }
 
-document.getElementById('info').innerHTML = "Local and Global vertices<br>Collision detection<br>BEHOLD THE EFFECTS OF ROUNDOFF ERROR"
+document.getElementById('info').innerHTML =
+    "Collision detection<br>"+
+    "Cube's velocity is logged for every bounce<br>"+
+    "Toggle Terminal Velocity to observe effects of roundoff error"
 document.title = "Collision Detection"
 
 //NOTHING ABOVE THIS LINE IS ESSENTIAL ------------------------------------
@@ -46,12 +49,16 @@ scene.add(localCube);
 var cube = new THREE.Mesh(geom, mat);
 cube.position.set(5, 10, 5);
 scene.add(cube);
+cube.checkTerminal = true;
 cube.collisionArrows = new THREE.Object3D();
 cube.velocity = new THREE.Vector3(0, 0, 0);
 cube.acceleration = new THREE.Vector3(0, -0.005, 0);
 cube.accelerationArrow = new THREE.ArrowHelper(cube.acceleration.clone().normalize(), cube.position, cube.acceleration.length(), 0xff0000);
 scene.add(cube.accelerationArrow);
-cube.update = function(){
+cube.update = function () {
+    if (cube.checkTerminal && cube.velocity.length() >= 0.31) {
+        cube.velocity.setLength(0.3);
+    }
     cube.position.add(cube.velocity);
     cube.velocity.add(cube.acceleration);
 }
@@ -137,5 +144,28 @@ function rotateCube() {
     cube.rotation.z += Math.PI / 300
 }
 
-
 animate();
+
+var toggleTerm = document.createElement('button');
+toggleTerm.innerHTML = "Terminal Velocity : ON"
+toggleTerm.style.fontSize = "20px"
+toggleTerm.style.position = 'absolute';
+toggleTerm.style.width = '250px';
+toggleTerm.style.height = '100px';
+toggleTerm.style.textAlign = 'center';
+toggleTerm.style.color = "#FFFFFF";
+toggleTerm.style.backgroundColor = "#404040";
+toggleTerm.style.zIndex = 2;
+toggleTerm.style.fontFamily = 'Courier New';
+toggleTerm.style.bottom = '0px'
+toggleTerm.style.borderRadius = '30px'
+toggleTerm.addEventListener('click', function (e) {
+    cube.checkTerminal = !cube.checkTerminal;
+    if (cube.checkTerminal) {
+        toggleTerm.innerHTML = "Terminal Velocity : ON"
+    } else {
+        toggleTerm.innerHTML = "Terminal Velocity : OFF"
+    }
+
+})
+document.body.appendChild(toggleTerm);
