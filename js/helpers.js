@@ -43,8 +43,6 @@ scene.add(light);
 scene.add(lightHelper);
 
 
-
-
 //=======================================================================
 
 camera.lookAt(new THREE.Vector3(0, 0, 0));

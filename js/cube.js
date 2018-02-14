@@ -21,7 +21,6 @@ var mat = new THREE.MeshBasicMaterial({
     wireframe: true
 })
 var cube = new THREE.Mesh(geom, mat);
-
 scene.add(cube);
 
 camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -31,3 +30,4 @@ function animate() {
 }
 
 animate();
+
